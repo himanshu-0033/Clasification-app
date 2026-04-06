@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pookie Mirror 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    
+    <main class="container">
+        <header>
+            <h1>Your Digital Space</h1>
+            <p class="subtitle">A moment of peace, just for you.</p>
+        </header>
+
+        <section class="compliment-section">
+            <button id="smile-btn" class="glow-btn">Make Me Smile 💫</button>
+            <div class="compliment-display">
+                <p id="compliment-text"></p>
+            </div>
+        </section>
+
+        <section class="mirror-section">
+            <div class="mirror">
+                <div class="mirror-header">
+                    <h2>Pookie Mirror</h2>
+                    <button id="clear-btn" class="icon-btn" title="Clear mirror">✨ Clear</button>
+                </div>
+                
+                <div class="mirror-content">
+                    <video id="mirror-video" autoplay playsinline></video>
+                    <canvas id="draw-canvas"></canvas>
+                    <textarea 
+                        id="mirror-input" 
+                        placeholder="Write what you want to see in yourself 💖" 
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="custom-cursor"></div>
+
+    <!-- MediaPipe Hand Tracking Setup -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

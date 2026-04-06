@@ -1,0 +1,284 @@
+:root {
+    /* Light Mode - Pastel Minimalist */
+    --bg-color: #f0f4f8;
+    --text-color: #334155;
+    --primary: #ffb7b2;
+    --secondary: #e2f0cb;
+    --accent: #b5ead7;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glow-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --btn-bg: #ff9a9e;
+    --btn-text: #fff;
+    --btn-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+    --font-main: 'Outfit', sans-serif;
+    --particle-color: rgba(255, 183, 178, 0.4);
+    --cursor-glow: rgba(255, 154, 158, 0.5);
+    --compliment-glow: none;
+    --input-color: #475569;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark Mode - Neon Glowing Glassmorphism */
+        --bg-color: #0b0c10;
+        --text-color: #e0e6ed;
+        --primary: #00f0ff;
+        --secondary: #ff00e5;
+        --accent: #bc13fe;
+        --glass-bg: rgba(16, 18, 27, 0.4);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glow-shadow: 0 8px 32px rgba(0, 240, 255, 0.15), 0 0 20px rgba(255, 0, 229, 0.1);
+        --btn-bg: linear-gradient(45deg, var(--primary), var(--secondary));
+        --btn-text: #fff;
+        --btn-shadow: 0 0 15px rgba(0, 240, 255, 0.5), 0 0 30px rgba(255, 0, 229, 0.3);
+        --particle-color: rgba(0, 240, 255, 0.3);
+        --cursor-glow: rgba(188, 19, 254, 0.8);
+        --compliment-glow: 0 0 10px var(--primary), 0 0 20px var(--accent);
+        --input-color: #fff;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+header {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--compliment-glow);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Compliment Section */
+.compliment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.glow-btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--btn-text);
+    background: var(--btn-bg);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.glow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
+}
+
+.glow-btn:active {
+    transform: translateY(1px);
+}
+
+.compliment-display {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#compliment-text {
+    font-size: 1.5rem;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(10px);
+    text-shadow: var(--compliment-glow);
+}
+
+#compliment-text.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mirror Section */
+.mirror-section {
+    width: 100%;
+}
+
+.mirror {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glow-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.5s ease, background 0.5s ease;
+}
+
+.mirror-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mirror-header h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.icon-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.icon-btn:hover {
+    background: var(--glass-border);
+}
+
+.mirror-content {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+#mirror-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transform: scaleX(-1);
+    opacity: 0.9;
+    border-radius: 0 0 24px 24px;
+}
+
+#draw-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Let textarea catch events */
+}
+
+#mirror-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    color: var(--input-color);
+    font-family: 'Kalam', 'Outfit', cursive, sans-serif;
+    font-size: 1.8rem;
+    padding: 2rem;
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+    text-shadow: var(--compliment-glow);
+}
+
+#mirror-input::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
+    text-shadow: none;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--cursor-glow);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    filter: blur(8px);
+    transition: width 0.2s, height 0.2s;
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    .custom-cursor {
+        display: none; /* Disable custom cursor on mobile */
+    }
+    .mirror-content {
+        height: 300px;
+    }
+}

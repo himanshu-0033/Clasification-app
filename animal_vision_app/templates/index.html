@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Vision | Animal Scanner</title>
+    <!-- Modern Minimalist Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <!-- Immersive Animated Background -->
+    <div class="bg-gradient"></div>
+
+    <main class="container">
+        <header>
+            <h1>AI Vision Setup</h1>
+            <p class="subtitle">Classify Dogs, Cats, Humans, and Pigs instantly.</p>
+        </header>
+
+        {% if not model_loaded %}
+        <div class="alert module-offline">
+            <strong>System Error:</strong> The AI model is not trained yet! Please run <code>python ../model_classifier.py</code> first to generate the weights.
+        </div>
+        {% endif %}
+
+        <div class="scanner-card">
+            <!-- Video Feed Container -->
+            <div class="camera-lens">
+                <video id="webcam" autoplay playsinline muted></video>
+                <!-- Scanning Frame Animation overlay -->
+                <div class="scan-line"></div>
+                <!-- Hidden Canvas for capturing physical image frames securely -->
+                <canvas id="snapshot-canvas" style="display: none;"></canvas>
+            </div>
+
+            <!-- Interactive Controls and Results Payload -->
+            <div class="scanner-controls">
+                <button id="capture-btn" class="glow-btn capture-btn" {% if not model_loaded %}disabled{% endif %}>
+                    <span class="btn-text">Snap & Classify 📸</span>
+                    <div class="btn-loader" style="display: none;"></div>
+                </button>
+
+                <!-- Model Output Visualization Box -->
+                <div id="result-box" class="result-box hidden">
+                    <h3>Scanning Result:</h3>
+                    <div class="match-data">
+                        <span id="predicted-class" class="highlight-text">Waiting...</span>
+                        <span id="predicted-confidence" class="confidencebadge">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- UI Interaction Logic -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
