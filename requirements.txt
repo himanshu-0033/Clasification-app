@@ -1,7 +1,5 @@
 Flask==3.0.0
-tensorflow-cpu
-matplotlib
-scikit-learn
-seaborn
+tflite-runtime
+numpy
 pillow
 gunicorn
